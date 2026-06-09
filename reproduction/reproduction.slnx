@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="../Main/Source/Effort.EF6.NetStandard21/Effort.EF6.NetStandard21.csproj" />
+  <Project Path="../Main/Source/Effort.Shared/Effort.Shared.shproj" />
+  <Project Path="reproduction.csproj" />
+</Solution>
