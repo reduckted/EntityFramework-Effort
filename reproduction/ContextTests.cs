@@ -1,4 +1,6 @@
-﻿using System.Data.Common;
+﻿#nullable disable
+
+using System.Data.Common;
 using System.Data.Entity;
 using Xunit;
 
