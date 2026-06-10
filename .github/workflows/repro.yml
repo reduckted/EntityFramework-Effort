@@ -7,7 +7,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: [10.0.1, 10.0.8]
+        include:
+          - version: "10.0.1"
+            fix: "false"
+          - version: "10.0.8"
+            fix: "false"
+          - version: "10.0.8"
+            fix: "true"
+
+    name: "${{ matrix.version }} | ${{ matrix.fix == 'true' && 'Fixed' || 'Not Fixed' }}"
 
     runs-on: ubuntu-latest
 
@@ -40,7 +48,7 @@ jobs:
 
       - name: Build
         working-directory: effort/reproduction
-        run: dotnet build -c Debug
+        run: dotnet build -c Debug -p:LockingFix=${{ matrix.fix }}
 
       - name: Test
         working-directory: effort/reproduction

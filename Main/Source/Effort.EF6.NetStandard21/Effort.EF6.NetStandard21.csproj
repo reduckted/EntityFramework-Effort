@@ -18,6 +18,10 @@
     <DefineConstants>TRACE;EF6</DefineConstants>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(LockingFix)' == 'true'">
+    <DefineConstants>$(DefineConstants);LOCKING_FIX</DefineConstants>
+  </PropertyGroup>
+  
   <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.3.0" />
   </ItemGroup>

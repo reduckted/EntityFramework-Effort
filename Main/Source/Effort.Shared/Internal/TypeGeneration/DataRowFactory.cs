@@ -149,7 +149,9 @@ namespace Effort.Internal.TypeGeneration
                         typeof(DataRow),
                     // No interfaces
                         Type.EmptyTypes);
+#if !LOCKING_FIX
             }
+#endif
 
             bool isLarge = LargeDataRowAttribute.LargePropertyCount <= properties.Count;
 
@@ -270,6 +272,9 @@ namespace Effort.Internal.TypeGeneration
             return typeBuilder.CreateTypeInfo();
 #else
             return typeBuilder.CreateType();
+#endif
+#if LOCKING_FIX
+            }
 #endif
         }
 
