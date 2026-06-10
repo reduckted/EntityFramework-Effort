@@ -30,18 +30,22 @@ jobs:
           ./dotnet-install.sh --runtime dotnet --version ${{ matrix.version }} --install-dir ./.dotnet
           ./dotnet-install.sh --version 10.0.101 --install-dir ./.dotnet
           echo "./.dotnet" >> $GITHUB_PATH
+          echo "DOTNET_ROOT=$GITHUB_WORKSPACE/.dotnet" >> $GITHUB_ENV
 
       - name: .NET Info
+        working-directory: effort/reproduction
         run: |
           which dotnet
           dotnet --info
 
-      - name: Run
+      - name: Build
+        working-directory: effort/reproduction
+        run: dotnet build -c Debug
+
+      - name: Test
         working-directory: effort/reproduction
         shell: pwsh
         run: |
-          dotnet build -c Debug
-
           for ($i = 0; $i -lt 50; $i++) {
             Write-Host "Run #$($i + 1)"
             
