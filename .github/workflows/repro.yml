@@ -14,6 +14,14 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v5
+        with:
+          path: effort
+
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+        with:
+          repository: zzzprojects/nmemory
+          path: nmemory
 
       - name: Install .NET Runtime
         run: |
@@ -29,12 +37,17 @@ jobs:
           dotnet --info
 
       - name: Run
-        working-directory: reproduction
+        working-directory: effort/reproduction
         shell: pwsh
         run: |
           dotnet build -c Debug
 
           for ($i = 0; $i -lt 50; $i++) {
             Write-Host "Run #$($i + 1)"
+            
             dotnet run -c Debug --no-build
+
+            if ($LASTEXITCODE -ne 0) {
+              throw "Run #$($i + 1) failed with exit code $LASTEXITCODE"
+            }
           }
